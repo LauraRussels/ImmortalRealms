@@ -1,4 +1,6 @@
 package net.immortalrealms;
 
-public class Root {
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Root extends JavaPlugin {
 }
