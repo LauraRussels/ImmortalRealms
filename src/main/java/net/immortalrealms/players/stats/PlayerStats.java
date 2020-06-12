@@ -1,5 +1,8 @@
 package net.immortalrealms.players.stats;
 
+import net.immortalrealms.Root;
+import org.bukkit.entity.Player;
+
 public abstract class PlayerStats {
     public int getPlayerKills() {
         return playerKills;
@@ -50,4 +53,8 @@ public abstract class PlayerStats {
     }
 
     public double playerExperience;
+
+    public int getKillStreak(Player player) {
+        return Root.killStreak.get(player);
+    }
 }
