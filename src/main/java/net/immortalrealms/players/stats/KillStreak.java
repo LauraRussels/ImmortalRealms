@@ -1,7 +1,5 @@
 package net.immortalrealms.players.stats;
 
-import java.util.Optional;
-
 public enum KillStreak {
     FIVE(5, 10),
     TEN(10, 20),
