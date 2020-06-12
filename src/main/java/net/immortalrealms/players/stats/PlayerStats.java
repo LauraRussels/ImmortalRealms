@@ -50,8 +50,4 @@ public abstract class PlayerStats {
         root.getConfig().set(player.getUniqueId() + ".experience", playerExperience);
         root.saveConfig();
     }
-
-    public int getKillStreak(Player player) {
-        return Root.killStreak.get(player);
-    }
 }

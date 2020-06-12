@@ -9,15 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 
 public class Root extends JavaPlugin {
-    public static HashMap<Player, Integer> killStreak;
-
     @Override
     public void onEnable() {
         if(this.getServer().getOnlinePlayers() == null) return;
-
-        killStreak = new HashMap<>();
-        this.getServer().getOnlinePlayers().forEach(player -> killStreak.put(player, 0));
-
         saveDefaultConfig();
 
         getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
@@ -36,6 +30,6 @@ public class Root extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        killStreak.clear();
+        saveConfig();
     }
 }

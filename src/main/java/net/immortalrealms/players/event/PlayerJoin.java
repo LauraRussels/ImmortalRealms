@@ -1,5 +1,6 @@
 package net.immortalrealms.players.event;
 
+import net.immortalrealms.Root;
 import net.immortalrealms.players.stats.PlayerStats;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,7 +15,7 @@ public class PlayerJoin extends PlayerStats implements Listener {
 
         setPlayerKills(player, 0);
         setPlayerDeaths(player, 0);
-        setPlayerScore(player, 0);
+        setPlayerScore(player, 100);
         setPlayerExperience(player, 0);
     }
 }

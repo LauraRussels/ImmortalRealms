@@ -1,17 +1,26 @@
 package net.immortalrealms.players.event;
 
+import com.gmail.filoghost.holographicdisplays.api.Hologram;
+import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import com.gmail.filoghost.holographicdisplays.api.VisibilityManager;
+import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
+import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
+import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 import net.immortalrealms.Root;
 import net.immortalrealms.players.stats.KillStreak;
 import net.immortalrealms.players.stats.PlayerStats;
 import net.immortalrealms.utils.ChatUtility;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.EnumSet;
 
@@ -30,39 +39,31 @@ public class PlayerDeath extends PlayerStats implements Listener {
         if(playerHealth - damageDealt <= 0.0D) {
             event.setCancelled(true);
 
-            ArmorStand armorStand = (ArmorStand) player.getWorld().spawn(player.getLocation(), ArmorStand.class);
-            armorStand.setGravity(false);
-            armorStand.setCanPickupItems(false);
-            armorStand.setCustomName(ChatUtility.colorText("&4&l** &cPLAYER DEATH &4&l**\n" +
-                    "&7RIP " + player.getName() + " - " + damager.getName() + "'s &e#" + getPlayerKills(damager) + " &7victim.\n" +
-                    "&7+ &e" + Math.round(getPlayerScore(damager) * 0.2) + " &7score.\n" +
-                    "&7+ &e100 &7experience."));
-            armorStand.setCustomNameVisible(true);
-            armorStand.setVisible(false);
+            // Damager handling
 
-            Bukkit.getScheduler().runTaskLater(Root.getPlugin(Root.class), armorStand::remove, 200L);
+            setPlayerKills(damager, (getPlayerKills(damager) + 1));
+            setPlayerExperience(damager, (getPlayerExperience(damager) + 100));
+            setPlayerScore(damager, (int) (getPlayerScore(player) + Math.round(getPlayerScore(damager) * 0.2)));
 
             // Dead player handling
 
             player.playSound(player.getLocation(), Sound.ANVIL_LAND, 1, 10);
             setPlayerDeaths(player, (getPlayerDeaths(player) + 1));
+            if(getPlayerScore(player) > 10) {
+                setPlayerScore(player, (int) (getPlayerScore(player) - Math.round(getPlayerScore(damager) * 0.2)));
+            }
 
-            // Damager handling
+            Location playerLocAdjust = new Location(player.getWorld(), player.getLocation().getX(), (player.getLocation().getY() + 3.5), player.getLocation().getZ());
 
-            setPlayerKills(damager, (getPlayerKills(damager) + 1));
-            setPlayerExperience(damager, (getPlayerExperience(damager) + 100));
-            setPlayerScore(damager, (int) (getPlayerScore(damager) + Math.round(getPlayerScore(damager) * 0.2)));
+            Hologram hologram = HologramsAPI.createHologram(Root.getPlugin(Root.class), playerLocAdjust);
+            hologram.clearLines();
 
-            Root.killStreak.replace(player, getKillStreak(player), getKillStreak(player) + 1);
+            hologram.appendTextLine(ChatUtility.colorText("&4&l** &c&lPLAYER DEATH &4&l**"));
+            hologram.appendTextLine(ChatUtility.colorText("&f&lRIP &f" + player.getName() + " - " + damager.getName() + "'s &e#" + getPlayerKills(damager) + " &fvictim."));
+            hologram.appendTextLine(ChatUtility.colorText("&f+ &e" + Math.round(getPlayerScore(damager) * 0.2) + " &fscore."));
+            hologram.appendTextLine(ChatUtility.colorText("&f+ &e100 &fexperience."));
 
-            EnumSet.allOf(KillStreak.class).forEach(killStreak -> {
-                if(killStreak.getActualInteger() == getKillStreak(damager)) {
-                    setPlayerExperience(damager, getPlayerExperience(damager) + killStreak.getBonusExperience());
-
-                    damager.sendMessage(ChatUtility.colorText("&e&l* BONUS &eYou gained an extra " + killStreak.getBonusExperience() + " experience."));
-                    Root.getPlugin(Root.class).getServer().getOnlinePlayers().forEach(players -> players.sendMessage(ChatUtility.colorText("&c&l* KILL STREAK &c" + damager.getName() + " is on a kill streak of " + killStreak.getActualInteger() + "!")));
-                }
-            });
+            Bukkit.getScheduler().runTaskLater(Root.getPlugin(Root.class), hologram::delete, 200L);
         }
     }
 }
