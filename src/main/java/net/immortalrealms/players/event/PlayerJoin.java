@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scoreboard.Scoreboard;
 
 public class PlayerJoin extends PlayerStats implements Listener {
     private ScoreboardHandler scoreboardHandler;

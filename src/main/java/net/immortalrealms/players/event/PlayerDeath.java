@@ -2,28 +2,18 @@ package net.immortalrealms.players.event;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
-import com.gmail.filoghost.holographicdisplays.api.VisibilityManager;
-import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
-import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
-import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 import net.immortalrealms.Root;
-import net.immortalrealms.players.stats.KillStreak;
 import net.immortalrealms.players.stats.PlayerStats;
 import net.immortalrealms.utils.ChatUtility;
 import net.immortalrealms.utils.ScoreboardHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.World;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.EnumSet;
 
 public class PlayerDeath extends PlayerStats implements Listener {
     private ScoreboardHandler scoreboardHandler;
