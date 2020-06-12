@@ -11,7 +11,6 @@ import java.util.HashMap;
 public class Root extends JavaPlugin {
     @Override
     public void onEnable() {
-        if(this.getServer().getOnlinePlayers() == null) return;
         saveDefaultConfig();
 
         getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
