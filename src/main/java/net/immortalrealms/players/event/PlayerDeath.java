@@ -10,6 +10,7 @@ import net.immortalrealms.Root;
 import net.immortalrealms.players.stats.KillStreak;
 import net.immortalrealms.players.stats.PlayerStats;
 import net.immortalrealms.utils.ChatUtility;
+import net.immortalrealms.utils.ScoreboardHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -25,6 +26,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.EnumSet;
 
 public class PlayerDeath extends PlayerStats implements Listener {
+    private ScoreboardHandler scoreboardHandler;
+    public PlayerDeath(ScoreboardHandler scoreboardHandler) {
+        this.scoreboardHandler = scoreboardHandler;
+    }
+
     @EventHandler(priority = EventPriority.HIGH) private void onPlayerDeath(EntityDamageByEntityEvent event) {
         if(!(event.getEntity() instanceof Player)) return;
         if(!(event.getDamager() instanceof Player)) return;
@@ -60,10 +66,13 @@ public class PlayerDeath extends PlayerStats implements Listener {
 
             hologram.appendTextLine(ChatUtility.colorText("&4&l** &c&lPLAYER DEATH &4&l**"));
             hologram.appendTextLine(ChatUtility.colorText("&f&lRIP &f" + player.getName() + " - " + damager.getName() + "'s &e#" + getPlayerKills(damager) + " &fvictim."));
-            hologram.appendTextLine(ChatUtility.colorText("&f+ &e" + Math.round(getPlayerScore(damager) * 0.2) + " &fscore."));
-            hologram.appendTextLine(ChatUtility.colorText("&f+ &e100 &fexperience."));
+            hologram.appendTextLine(ChatUtility.colorText("&f+&e" + Math.round(getPlayerScore(damager) * 0.2) + " &fscore."));
+            hologram.appendTextLine(ChatUtility.colorText("&f+&e100 &fexperience."));
 
             Bukkit.getScheduler().runTaskLater(Root.getPlugin(Root.class), hologram::delete, 200L);
+
+            scoreboardHandler.setScoreboard(damager);
+            scoreboardHandler.setScoreboard(player);
         }
     }
 }

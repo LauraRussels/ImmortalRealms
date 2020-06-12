@@ -2,6 +2,7 @@ package net.immortalrealms;
 
 import net.immortalrealms.players.event.PlayerDeath;
 import net.immortalrealms.players.event.PlayerJoin;
+import net.immortalrealms.utils.ScoreboardHandler;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +15,7 @@ public class Root extends JavaPlugin {
         saveDefaultConfig();
 
         getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(new ScoreboardHandler()), this);
     }
 
     @Override
