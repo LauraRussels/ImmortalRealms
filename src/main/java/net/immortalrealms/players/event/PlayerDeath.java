@@ -13,14 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.EnumSet;
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class PlayerDeath extends PlayerStats implements Listener {
     @EventHandler(priority = EventPriority.HIGH) private void onPlayerDeath(EntityDamageByEntityEvent event) {
