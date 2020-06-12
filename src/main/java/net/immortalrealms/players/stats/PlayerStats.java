@@ -4,55 +4,52 @@ import net.immortalrealms.Root;
 import org.bukkit.entity.Player;
 
 public abstract class PlayerStats {
-    public int getPlayerKills() {
-        return playerKills;
+    private Root root = Root.getPlugin(Root.class);
+
+    public int getPlayerKills(Player player) {
+        return root.getConfig().getInt(player.getUniqueId() + ".kills");
     }
 
-    public void setPlayerKills(int playerKills) {
-        this.playerKills = playerKills;
+    public void setPlayerKills(Player player, int playerKills) {
+        root.getConfig().set(player.getUniqueId() + ".kills", playerKills);
+        root.saveConfig();
     }
 
-    public int playerKills;
-
-    public int getPlayerDeaths() {
-        return playerDeaths;
+    public int getPlayerDeaths(Player player) {
+        return root.getConfig().getInt(player.getUniqueId() + ".deaths");
     }
 
-    public void setPlayerDeaths(int playerDeaths) {
-        this.playerDeaths = playerDeaths;
+    public void setPlayerDeaths(Player player, int playerDeaths) {
+        root.getConfig().set(player.getUniqueId() + ".deaths", playerDeaths);
+        root.saveConfig();
     }
 
-    public int playerDeaths;
-
-    public int getPlayerScore() {
-        return playerScore;
+    public int getPlayerScore(Player player) {
+        return root.getConfig().getInt(player.getUniqueId() + ".score");
     }
 
-    public void setPlayerScore(int playerScore) {
-        this.playerScore = playerScore;
+    public void setPlayerScore(Player player, int playerScore) {
+        root.getConfig().set(player.getUniqueId() + ".score", playerScore);
+        root.saveConfig();
     }
 
-    public int playerScore;
-
-    public int getPlayerLevel() {
-        return playerLevel;
+    public int getPlayerLevel(Player player) {
+        return root.getConfig().getInt(player.getUniqueId() + ".level");
     }
 
-    public void setPlayerLevel(int playerLevel) {
-        this.playerLevel = playerLevel;
+    public void setPlayerLevel(Player player, int playerLevel) {
+        root.getConfig().set(player.getUniqueId() + ".level", playerLevel);
+        root.saveConfig();
     }
 
-    public int playerLevel;
-
-    public double getPlayerExperience() {
-        return playerExperience;
+    public int getPlayerExperience(Player player) {
+        return root.getConfig().getInt(player.getUniqueId() + ".experience");
     }
 
-    public void setPlayerExperience(double playerExperience) {
-        this.playerExperience = playerExperience;
+    public void setPlayerExperience(Player player, int playerExperience) {
+        root.getConfig().set(player.getUniqueId() + ".experience", playerExperience);
+        root.saveConfig();
     }
-
-    public double playerExperience;
 
     public int getKillStreak(Player player) {
         return Root.killStreak.get(player);

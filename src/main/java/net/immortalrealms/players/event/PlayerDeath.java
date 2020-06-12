@@ -34,8 +34,8 @@ public class PlayerDeath extends PlayerStats implements Listener {
             armorStand.setGravity(false);
             armorStand.setCanPickupItems(false);
             armorStand.setCustomName(ChatUtility.colorText("&4&l** &cPLAYER DEATH &4&l**\n" +
-                    "&7RIP " + player.getName() + " - " + damager.getName() + "'s &e#" + getPlayerKills() + " &7victim.\n" +
-                    "&7+ &e" + Math.round(getPlayerScore() * 0.2) + " &7score.\n" +
+                    "&7RIP " + player.getName() + " - " + damager.getName() + "'s &e#" + getPlayerKills(damager) + " &7victim.\n" +
+                    "&7+ &e" + Math.round(getPlayerScore(damager) * 0.2) + " &7score.\n" +
                     "&7+ &e100 &7experience."));
             armorStand.setCustomNameVisible(true);
             armorStand.setVisible(false);
@@ -45,19 +45,19 @@ public class PlayerDeath extends PlayerStats implements Listener {
             // Dead player handling
 
             player.playSound(player.getLocation(), Sound.ANVIL_LAND, 1, 10);
-            setPlayerDeaths(getPlayerDeaths() + 1);
+            setPlayerDeaths(player, (getPlayerDeaths(player) + 1));
 
             // Damager handling
 
-            setPlayerKills(getPlayerKills() + 1);
-            setPlayerExperience(getPlayerExperience() + 100);
-            setPlayerScore((int) (getPlayerScore() + Math.round(getPlayerScore() * 0.2)));
+            setPlayerKills(damager, (getPlayerKills(damager) + 1));
+            setPlayerExperience(damager, (getPlayerExperience(damager) + 100));
+            setPlayerScore(damager, (int) (getPlayerScore(damager) + Math.round(getPlayerScore(damager) * 0.2)));
 
             Root.killStreak.replace(player, getKillStreak(player), getKillStreak(player) + 1);
 
             EnumSet.allOf(KillStreak.class).forEach(killStreak -> {
                 if(killStreak.getActualInteger() == getKillStreak(damager)) {
-                    setPlayerExperience(getPlayerExperience() + killStreak.getBonusExperience());
+                    setPlayerExperience(damager, getPlayerExperience(damager) + killStreak.getBonusExperience());
 
                     damager.sendMessage(ChatUtility.colorText("&e&l* BONUS &eYou gained an extra " + killStreak.getBonusExperience() + " experience."));
                     Root.getPlugin(Root.class).getServer().getOnlinePlayers().forEach(players -> players.sendMessage(ChatUtility.colorText("&c&l* KILL STREAK &c" + damager.getName() + " is on a kill streak of " + killStreak.getActualInteger() + "!")));
