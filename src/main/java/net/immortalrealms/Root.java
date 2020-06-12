@@ -1,5 +1,7 @@
 package net.immortalrealms;
 
+import net.immortalrealms.players.event.PlayerDeath;
+import net.immortalrealms.players.event.PlayerJoin;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +19,9 @@ public class Root extends JavaPlugin {
         this.getServer().getOnlinePlayers().forEach(player -> killStreak.put(player, 0));
 
         saveDefaultConfig();
+
+        getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
     }
 
     @Override
