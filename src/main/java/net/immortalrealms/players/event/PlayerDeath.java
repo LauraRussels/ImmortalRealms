@@ -40,6 +40,7 @@ public class PlayerDeath extends PlayerStats implements Listener {
             setPlayerKills(damager, (getPlayerKills(damager) + 1));
             setPlayerExperience(damager, (getPlayerExperience(damager) + 100));
             setPlayerScore(damager, (int) (getPlayerScore(player) + Math.round(getPlayerScore(damager) * 0.2)));
+            scoreboardHandler.setScoreboard(damager);
 
             // Dead player handling
 
@@ -48,6 +49,12 @@ public class PlayerDeath extends PlayerStats implements Listener {
             if(getPlayerScore(player) > 10) {
                 setPlayerScore(player, (int) (getPlayerScore(player) - Math.round(getPlayerScore(damager) * 0.2)));
             }
+            scoreboardHandler.setScoreboard(player);
+
+            player.setHealth(player.getMaxHealth());
+            player.teleport(player.getWorld().getSpawnLocation());
+
+            // Hologram handling
 
             Location playerLocAdjust = new Location(player.getWorld(), player.getLocation().getX(), (player.getLocation().getY() + 3.5), player.getLocation().getZ());
 
@@ -60,9 +67,6 @@ public class PlayerDeath extends PlayerStats implements Listener {
             hologram.appendTextLine(ChatUtility.colorText("&f+&e100 &fexperience."));
 
             Bukkit.getScheduler().runTaskLater(Root.getPlugin(Root.class), hologram::delete, 200L);
-
-            scoreboardHandler.setScoreboard(damager);
-            scoreboardHandler.setScoreboard(player);
         }
     }
 }
