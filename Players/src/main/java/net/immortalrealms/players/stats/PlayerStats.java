@@ -1,10 +1,10 @@
 package net.immortalrealms.players.stats;
 
-import net.immortalrealms.Root;
+import net.immortalrealms.players.Players;
 import org.bukkit.entity.Player;
 
 public abstract class PlayerStats {
-    private Root root = Root.getPlugin(Root.class);
+    private Players root = Players.getPlugin(Players.class);
 
     public int getPlayerKills(Player player) {
         return root.getConfig().getInt(player.getUniqueId() + ".kills");

@@ -1,4 +1,4 @@
-package net.immortalrealms.players.combat;
+package net.immortalrealms.combat;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

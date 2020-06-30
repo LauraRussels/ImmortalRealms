@@ -1,7 +1,7 @@
 package net.immortalrealms.players.event;
 
 import net.immortalrealms.players.stats.PlayerStats;
-import net.immortalrealms.utils.ScoreboardHandler;
+import net.immortalrealms.utility.ScoreboardHandler;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

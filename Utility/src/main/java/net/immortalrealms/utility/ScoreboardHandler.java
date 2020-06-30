@@ -1,4 +1,4 @@
-package net.immortalrealms.utils;
+package net.immortalrealms.utility;
 
 import net.immortalrealms.players.stats.PlayerStats;
 import org.bukkit.Bukkit;

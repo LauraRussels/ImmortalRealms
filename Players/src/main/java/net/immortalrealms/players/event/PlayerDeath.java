@@ -2,10 +2,10 @@ package net.immortalrealms.players.event;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
-import net.immortalrealms.Root;
+import net.immortalrealms.combat.Combat;
 import net.immortalrealms.players.stats.PlayerStats;
-import net.immortalrealms.utils.ChatUtility;
-import net.immortalrealms.utils.ScoreboardHandler;
+import net.immortalrealms.utility.ChatUtility;
+import net.immortalrealms.utility.ScoreboardHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -58,7 +58,7 @@ public class PlayerDeath extends PlayerStats implements Listener {
 
             Location playerLocAdjust = new Location(player.getWorld(), player.getLocation().getX(), (player.getLocation().getY() + 3.5), player.getLocation().getZ());
 
-            Hologram hologram = HologramsAPI.createHologram(Root.getPlugin(Root.class), playerLocAdjust);
+            Hologram hologram = HologramsAPI.createHologram(Combat.getPlugin(Combat.class), playerLocAdjust);
             hologram.clearLines();
 
             hologram.appendTextLine(ChatUtility.colorText("&4&l** &c&lPLAYER DEATH &4&l**"));
@@ -66,7 +66,7 @@ public class PlayerDeath extends PlayerStats implements Listener {
             hologram.appendTextLine(ChatUtility.colorText("&f+&e" + Math.round(getPlayerScore(damager) * 0.2) + " &fscore."));
             hologram.appendTextLine(ChatUtility.colorText("&f+&e100 &fexperience."));
 
-            Bukkit.getScheduler().runTaskLater(Root.getPlugin(Root.class), hologram::delete, 200L);
+            Bukkit.getScheduler().runTaskLater(Combat.getPlugin(Combat.class), hologram::delete, 200L);
         }
     }
 }

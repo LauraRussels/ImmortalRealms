@@ -1,6 +1,6 @@
 package net.immortalrealms.players.event;
 
-import net.immortalrealms.players.combat.CombatTag;
+import net.immortalrealms.combat.CombatTag;
 import net.immortalrealms.players.stats.PlayerStats;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

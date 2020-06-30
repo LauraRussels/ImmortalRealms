@@ -1,7 +1,6 @@
-package net.immortalrealms.players.combat;
+package net.immortalrealms.combat;
 
-import net.immortalrealms.Root;
-import net.immortalrealms.utils.ChatUtility;
+import net.immortalrealms.utility.ChatUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,13 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.IdentityHashMap;
-import java.util.Map;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class CombatTag implements Listener {
     public static ArrayList<Player> combatTag = new ArrayList<>();
@@ -40,7 +34,7 @@ public class CombatTag implements Listener {
             damager.sendMessage(ChatUtility.colorText("&4&l* &cYou have combat tagged " + player.getName() + ".\n" +
                     "&7* Logging out within 20 seconds will result in stat loss."));
 
-            Bukkit.getScheduler().runTaskLater(Root.getPlugin(Root.class), () -> {
+            Bukkit.getScheduler().runTaskLater(Combat.getPlugin(Combat.class), () -> {
                 combatTag.remove(player);
                 combatTag.remove(damager);
             }, 20 * 20L);
