@@ -1,0 +1,4 @@
+name: Combat
+author: LauraRussels
+version: 1.0-SNAPSHOT
+main: net.immortalrealms.combat.Combat

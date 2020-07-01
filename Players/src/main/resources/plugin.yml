@@ -1,0 +1,4 @@
+name: Players
+auhtor: LauraRussels
+version: 1.0-SNAPSHOT
+main: net.immortalrealms.players.Players
