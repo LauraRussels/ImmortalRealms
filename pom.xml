@@ -24,6 +24,7 @@
         <module>Players</module>
         <module>Combat</module>
         <module>Utility</module>
+        <module>Shop</module>
     </modules>
 
     <repositories>
